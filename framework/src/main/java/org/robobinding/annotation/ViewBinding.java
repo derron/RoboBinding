@@ -14,6 +14,8 @@ import java.lang.annotation.Target;
 @Target({ ElementType.TYPE })
 public @interface ViewBinding {
 
-	String[] simpleOneWayProperties();
+	String[] simpleOneWayProperties() default {};
+
+	TwoWayProperty[] twoWayProperties() default {};
 
 }
