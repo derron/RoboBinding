@@ -317,7 +317,7 @@ uploadArchives {
 						url 'https://github.com/monesprit54'
 					}
 					contributor {
-					  name 'Aur¨¦lien'
+					  name 'Aurï¿½ï¿½lien'
 					  url 'https://github.com/acatinon'
 					}
 					contributor {
@@ -337,6 +337,21 @@ uploadArchives {
 				dependenciesNode.remove androidDependencyNode
 				//remove aspectjrt dependency node.
 				def aspectjDependencyNode = dependenciesNode.dependency.find{ it.groupId.text() == 'org.aspectj' }
+				dependenciesNode.remove aspectjDependencyNode
+			}
+		}
+	}
+}
+install {
+	repositories {
+		mavenInstaller {
+			pom.withXml {
+				def dependenciesNode = it.asNode().dependencies[0];
+				//remove android sdk dependency node.
+				def androidDependencyNode = dependenciesNode.dependency.find { it.artifactId.text() == 'android-all' }
+				dependenciesNode.remove androidDependencyNode
+				//remove aspectjrt dependency node.
+				def aspectjDependencyNode = dependenciesNode.dependency.find { it.groupId.text() == 'org.aspectj' }
 				dependenciesNode.remove aspectjDependencyNode
 			}
 		}
