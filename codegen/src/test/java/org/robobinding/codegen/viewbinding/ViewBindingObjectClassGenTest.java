@@ -46,16 +46,17 @@ public class ViewBindingObjectClassGenTest {
 
 	private ViewBindingInfo createViewBindingInfo(Class<? extends CustomViewBinding<?>> viewBindingType) {
 		return createViewBindingInfo(viewBindingType, Collections.<SimpleOneWayPropertyInfo>emptyList(),
-				Collections.<TwoWayPropertyInfo>emptyList());
+				Collections.<TwoWayPropertyInfo>emptyList(), Collections.<EventPropertyInfo>emptyList());
 	}
 
 	private ViewBindingInfo createViewBindingInfo(Class<? extends CustomViewBinding<?>> viewBindingType, 
 			List<SimpleOneWayPropertyInfo> simpleOneWayPropertyInfoList,
-			List<TwoWayPropertyInfo> twoWayPropertyInfoList) {
+			List<TwoWayPropertyInfo> twoWayPropertyInfoList,
+			List<EventPropertyInfo> eventPropertyInfoList) {
 		String viewBindingTypeName = viewBindingType.getName();
 		String viewBindingObjectTypeName = viewBindingTypeName + "_VB";
 		return new ViewBindingInfo(viewBindingTypeName, viewBindingObjectTypeName,
-				viewElementType(), simpleOneWayPropertyInfoList, twoWayPropertyInfoList);
+				viewElementType(), simpleOneWayPropertyInfoList, twoWayPropertyInfoList, eventPropertyInfoList);
 	}
 	
 	private WrappedTypeElement viewElementType() {
@@ -71,7 +72,7 @@ public class ViewBindingObjectClassGenTest {
 		ViewBindingInfo info = createViewBindingInfo(DefineSimpleOneWayPropertyClasses.class, 
 				Lists.newArrayList(new SimpleOneWayPropertyInfo(setterOf("imageAlpha")),
 						new SimpleOneWayPropertyInfo(setterOf("scaleType"))),
-				Collections.<TwoWayPropertyInfo>emptyList());
+				Collections.<TwoWayPropertyInfo>emptyList(), Collections.<EventPropertyInfo>emptyList());
 		ViewBindingObjectClassGen gen = new ViewBindingObjectClassGen(info);
 		gen.defineSimpleOneWayPropertyClasses();
 
@@ -87,7 +88,8 @@ public class ViewBindingObjectClassGenTest {
 		ViewBindingInfo info = createViewBindingInfo(DefineMapBindingAttributesMethod.class, 
 				Lists.newArrayList(new SimpleOneWayPropertyInfo(setterOf("imageAlpha")),
 						new SimpleOneWayPropertyInfo(setterOf("scaleType"))),
-				Lists.newArrayList(new TwoWayPropertyInfo("twoWayProp", DefineMapBindingAttributesMethod.CustomTwoWayProp.class.getCanonicalName())));
+				Lists.newArrayList(new TwoWayPropertyInfo("twoWayProp", DefineMapBindingAttributesMethod.CustomTwoWayProp.class.getCanonicalName())),
+				Lists.newArrayList(new EventPropertyInfo("eventProp", DefineMapBindingAttributesMethod.CustomEventProp.class.getCanonicalName())));
 		ViewBindingObjectClassGen gen = new ViewBindingObjectClassGen(info);
 		gen.defineFields();
 		gen.defineSimpleOneWayPropertyClasses();

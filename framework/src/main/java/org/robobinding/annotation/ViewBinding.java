@@ -18,4 +18,6 @@ public @interface ViewBinding {
 
 	TwoWayProperty[] twoWayProperties() default {};
 
+	EventProperty[] eventProperties() default {};
+
 }

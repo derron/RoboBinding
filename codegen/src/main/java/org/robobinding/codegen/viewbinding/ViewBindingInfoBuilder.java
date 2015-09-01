@@ -30,8 +30,9 @@ public class ViewBindingInfoBuilder {
 		WrappedTypeElement viewType = extractViewType();
 		List<SimpleOneWayPropertyInfo> simpleOneWayPropertyInfoList = extractSimpleOneWayPropertyInfoList(viewType);
 		List<TwoWayPropertyInfo> twoWayPropertyInfoList = extractTwoWayPropertyInfoList(typeElement);
+		List<EventPropertyInfo> eventPropertyInfoList = extractEventPropertyInfoList(typeElement);
 		return new ViewBindingInfo(typeElement.qName(), viewBindingObjectTypeName, viewType,
-				simpleOneWayPropertyInfoList, twoWayPropertyInfoList);
+				simpleOneWayPropertyInfoList, twoWayPropertyInfoList, eventPropertyInfoList);
 	}
 
 	private WrappedTypeElement extractViewType() {
@@ -77,6 +78,18 @@ public class ViewBindingInfoBuilder {
 			String propertyName = annotationMirror.annotationValueAsText("name");
 			WrappedDeclaredType propertyType = annotationMirror.annotationValueAsType("type");
 			result.add(new TwoWayPropertyInfo(propertyName, propertyType.className()));
+		}
+		return result;
+	}
+
+	private List<EventPropertyInfo> extractEventPropertyInfoList(WrappedTypeElement typeElement) {
+		ViewBindingAnnotationMirror annotation = new ViewBindingAnnotationMirror(typeElement.getAnnotation(ViewBinding.class));
+		List<WrappedAnnotationMirror> twoWayProperties = annotation.getEventProperties();
+		List<EventPropertyInfo> result = Lists.newArrayList();
+		for (WrappedAnnotationMirror annotationMirror : twoWayProperties) {
+			String propertyName = annotationMirror.annotationValueAsText("name");
+			WrappedDeclaredType propertyType = annotationMirror.annotationValueAsType("type");
+			result.add(new EventPropertyInfo(propertyName, propertyType.className()));
 		}
 		return result;
 	}

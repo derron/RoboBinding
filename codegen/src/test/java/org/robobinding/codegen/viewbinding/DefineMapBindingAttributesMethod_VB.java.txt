@@ -3,6 +3,7 @@ package org.robobinding.codegen.viewbinding;
 
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+import org.robobinding.codegen.viewbinding.DefineMapBindingAttributesMethod.CustomEventProp;
 import org.robobinding.codegen.viewbinding.DefineMapBindingAttributesMethod.CustomTwoWayProp;
 import org.robobinding.viewattribute.property.OneWayPropertyViewAttribute;
 import org.robobinding.viewbinding.BindingAttributeMappings;
@@ -15,6 +16,7 @@ public class DefineMapBindingAttributesMethod_VB implements ViewBinding<ImageVie
 		mappings.mapOneWayProperty(DefineMapBindingAttributesMethod_VB.ImageAlphaAttribute.class, "imageAlpha");
 		mappings.mapOneWayProperty(DefineMapBindingAttributesMethod_VB.ScaleTypeAttribute.class, "scaleType");
 		mappings.mapTwoWayProperty(CustomTwoWayProp.class, "twoWayProp");
+		mappings.mapEvent(CustomEventProp.class, "eventProp");
 		customViewBinding.mapBindingAttributes(mappings);
 	}
 			

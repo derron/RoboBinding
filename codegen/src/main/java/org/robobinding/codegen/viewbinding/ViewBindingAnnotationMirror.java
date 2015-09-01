@@ -34,4 +34,12 @@ public class ViewBindingAnnotationMirror {
 		return twoWayProperties;
 	}
 
+	public List<WrappedAnnotationMirror> getEventProperties() {
+		List<WrappedAnnotationMirror> twoWayProperties = annotationMirror.annotationValueAsAnnotationList("eventProperties");
+		if (twoWayProperties == null) {
+			return Lists.newArrayList();
+		}
+		return twoWayProperties;
+	}
+
 }

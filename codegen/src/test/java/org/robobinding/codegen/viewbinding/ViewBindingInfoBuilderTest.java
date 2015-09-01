@@ -54,9 +54,10 @@ public class ViewBindingInfoBuilderTest {
 				ViewBindingWithVariousProperties.class.getName(), 
 				viewBindingObjectTypeName, 
 				typeElementOf(ViewWithProperties.class), 
-				Lists.newArrayList(new SimpleOneWayPropertyInfo(looseSetterOf(ViewWithProperties.PRIMITIVE_PROP)), 
+				Lists.newArrayList(new SimpleOneWayPropertyInfo(looseSetterOf(ViewWithProperties.PRIMITIVE_PROP)),
 						new SimpleOneWayPropertyInfo(looseSetterOf(ViewWithProperties.OBJECT_PROP))),
-				Lists.newArrayList(new TwoWayPropertyInfo(ViewWithProperties.TWO_WAY_PROP, ViewWithProperties.CustomTwoWayProp.class.getCanonicalName())));
+				Lists.newArrayList(new TwoWayPropertyInfo(ViewWithProperties.TWO_WAY_PROP, ViewWithProperties.CustomTwoWayProp.class.getCanonicalName())),
+				Lists.newArrayList(new EventPropertyInfo(ViewWithProperties.EVENT_PROP, ViewWithProperties.CustomEventProp.class.getCanonicalName())));
 		Assert.assertThat(viewBindingInfo, equalTo(expectedViewBindingInfo));
 	}
 	

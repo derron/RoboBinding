@@ -18,16 +18,19 @@ public class ViewBindingInfo {
 	private final WrappedTypeElement viewType;
 	private final List<SimpleOneWayPropertyInfo> simpleOneWayPropertyInfoList;
 	private final List<TwoWayPropertyInfo> twoWayPropertyInfoList;
-	
+	private final List<EventPropertyInfo> eventPropertyInfoList;
+
 	public ViewBindingInfo(String viewBindingTypeName, String viewBindingObjectTypeName, 
 			WrappedTypeElement viewType,
 			List<SimpleOneWayPropertyInfo> simpleOneWayPropertyInfoList,
-			List<TwoWayPropertyInfo> twoWayPropertyInfoList) {
+			List<TwoWayPropertyInfo> twoWayPropertyInfoList,
+			List<EventPropertyInfo> eventPropertyInfoList) {
 		this.viewBindingTypeName = viewBindingTypeName;
 		this.viewBindingObjectTypeName = viewBindingObjectTypeName;
 		this.viewType = viewType;
 		this.simpleOneWayPropertyInfoList = simpleOneWayPropertyInfoList;
 		this.twoWayPropertyInfoList = twoWayPropertyInfoList;
+		this.eventPropertyInfoList = eventPropertyInfoList;
 	}
 
 	public String viewBindingTypeName() {
@@ -50,6 +53,10 @@ public class ViewBindingInfo {
 		return Collections.unmodifiableList(twoWayPropertyInfoList);
 	}
 
+	public List<EventPropertyInfo> eventPropertyInfoList() {
+		return Collections.unmodifiableList(eventPropertyInfoList);
+	}
+
 	@Override
 	public boolean equals(Object other) {
 		if (this == other)
@@ -62,7 +69,8 @@ public class ViewBindingInfo {
 				&& Objects.equal(viewBindingObjectTypeName, that.viewBindingObjectTypeName)
 				&& Objects.equal(viewType, that.viewType)
 				&& Objects.equal(simpleOneWayPropertyInfoList, that.simpleOneWayPropertyInfoList)
-				&& Objects.equal(twoWayPropertyInfoList, that.twoWayPropertyInfoList);
+				&& Objects.equal(twoWayPropertyInfoList, that.twoWayPropertyInfoList)
+				&& Objects.equal(eventPropertyInfoList, that.eventPropertyInfoList);
 	}
 
 	@Override
@@ -71,6 +79,7 @@ public class ViewBindingInfo {
 				+ Objects.hashCode(viewBindingObjectTypeName)
 				+ Objects.hashCode(viewType)
 				+ Objects.hashCode(simpleOneWayPropertyInfoList)
-				+ Objects.hashCode(twoWayPropertyInfoList);
+				+ Objects.hashCode(twoWayPropertyInfoList)
+				+ Objects.hashCode(eventPropertyInfoList);
 	}
 }
