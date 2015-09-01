@@ -24,6 +24,7 @@ public class AdapterViewBinding implements ViewBinding<AdapterView<?>> {
 		mappings.mapTwoWayProperty(SelectedItemPositionAttribute.class, "selectedItemPosition");
 
 		mappings.mapEvent(OnItemClickAttribute.class, "onItemClick");
+		mappings.mapEvent(OnItemLongClickAttribute.class, "onItemLongClick");
 		mappings.mapEvent(OnItemSelectedAttribute.class, "onItemSelected");
 
 		mappings.mapGroupedAttribute(AdaptedDataSetAttributes.class, SOURCE, ITEM_LAYOUT, ITEM_MAPPING);

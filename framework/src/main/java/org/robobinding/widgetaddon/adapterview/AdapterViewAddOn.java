@@ -5,6 +5,7 @@ import org.robobinding.widgetaddon.view.ViewAddOnForView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 /**
  * @since 1.0
@@ -15,6 +16,7 @@ public class AdapterViewAddOn extends ViewAddOnForView {
 	private final AdapterView<?> view;
 	private OnItemSelectedListeners onItemSelectedListeners;
 	private OnItemClickListeners onItemClickListeners;
+	private OnItemLongClickListeners onItemLongClickListeners;
 
 	public AdapterViewAddOn(AdapterView<?> view) {
 		super(view);
@@ -32,6 +34,11 @@ public class AdapterViewAddOn extends ViewAddOnForView {
 		onItemClickListeners.addListener(onItemClickListener);
 	}
 
+	public void addOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+		ensureOnItemLongClickListenersInitialized();
+		onItemLongClickListeners.addListener(onItemLongClickListener);
+	}
+
 	private void ensureOnItemSelectedListenersInitialized() {
 		if (onItemSelectedListeners == null) {
 			onItemSelectedListeners = new OnItemSelectedListeners();
@@ -44,6 +51,12 @@ public class AdapterViewAddOn extends ViewAddOnForView {
 			onItemClickListeners = new OnItemClickListeners();
 			view.setOnItemClickListener(onItemClickListeners);
 		}
+	}
 
+	private void ensureOnItemLongClickListenersInitialized() {
+		if (onItemLongClickListeners == null) {
+			onItemLongClickListeners = new OnItemLongClickListeners();
+			view.setOnItemLongClickListener(onItemLongClickListeners);
+		}
 	}
 }
