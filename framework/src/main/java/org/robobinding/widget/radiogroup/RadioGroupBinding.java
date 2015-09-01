@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 public class RadioGroupBinding implements ViewBinding<RadioGroup> {
 	@Override
 	public void mapBindingAttributes(BindingAttributeMappings<RadioGroup> mappings) {
+		mappings.mapTwoWayProperty(CheckedIdAttribute.class, "checkedId");
 		mappings.mapEvent(OnCheckedChangeAttribute.class, "onCheckedChange");
 	}
 }
