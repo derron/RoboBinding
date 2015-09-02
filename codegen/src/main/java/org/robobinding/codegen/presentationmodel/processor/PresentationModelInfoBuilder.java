@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.robobinding.annotation.DependsOnStateOf;
 import org.robobinding.annotation.ItemPresentationModel;
+import org.robobinding.binder.ItemPresentationModelObjectLoader;
 import org.robobinding.codegen.apt.element.GetterElement;
 import org.robobinding.codegen.apt.element.MethodElement;
 import org.robobinding.codegen.apt.element.SetterElement;
@@ -29,8 +30,7 @@ import com.google.common.collect.Sets;
  * 
  */
 public class PresentationModelInfoBuilder {
-	private static final String ITEM_PRESENTATION_MODEL_OBJECT_SUFFIX = "$$IPM";
-	
+
 	private final WrappedTypeElement typeElement;
 	private final boolean dataSetPropertyEnabled;
 	private final String presentationModelObjectTypeName;
@@ -114,7 +114,7 @@ public class PresentationModelInfoBuilder {
 	}
 
 	private String itemPresentationModelObjectTypeNameOf(ItemPresentationModelAnnotationMirror annotation) {
-		return annotation.itemPresentationModelTypeName() + ITEM_PRESENTATION_MODEL_OBJECT_SUFFIX;
+		return ItemPresentationModelObjectLoader.getObjectClassName(annotation.itemPresentationModelTypeBinaryName());
 	}
 
 	private PropertyInfoBuilder getFromPropertyBuilders(String propertyName) {

@@ -18,6 +18,10 @@ public class ItemPresentationModelAnnotationMirror {
 		return annotationMirror.annotationValueAsType("value").className();
 	}
 
+	public String itemPresentationModelTypeBinaryName() {
+		return annotationMirror.annotationValueAsType("value").binaryName();
+	}
+
 	public boolean hasItemViewFactory() {
 		return annotationMirror.hasAnnotationValue("viewFactory");
 	}

@@ -33,6 +33,10 @@ public class TypeMirrorWrapper {
 		this.visitor = new WrapperVisitorImpl();
 	}
 
+	public Elements elements() {
+		return elements;
+	}
+
 	@SuppressWarnings("unchecked")
 	public <T extends WrappedTypeMirror> T wrap(TypeMirror typeMirror) {
 		if (typeMirror == null) {

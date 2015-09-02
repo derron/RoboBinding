@@ -35,8 +35,6 @@ import com.helger.jcodemodel.JClassAlreadyExistsException;
  */
 //@SupportedAnnotationTypes("org.robobinding.annotation.PresentationModel")
 public class PresentationModelProcessor extends AbstractProcessor {
-	private static final String PRESENTATION_MODEL_OBJECT_SUFFIX = PresentationModelObjectLoader.CLASS_SUFFIX;
-	private static final String ITEM_PRESENTATION_MODEL_OBJECT_SUFFIX = ItemPresentationModelObjectLoader.CLASS_SUFFIX;
 	private Set<String> processedItemPresentationModels;
 	
 	@Override
@@ -54,7 +52,7 @@ public class PresentationModelProcessor extends AbstractProcessor {
 				new PresentationModelFilter());
 		
 		for(WrappedTypeElement typeElement : typeElements) {
-			String presentationModelObjectTypeName = typeElement.qName() + PRESENTATION_MODEL_OBJECT_SUFFIX;
+			String presentationModelObjectTypeName = PresentationModelObjectLoader.getObjectClassName(typeElement.binaryName());
 			PresentationModelInfoBuilder builder = new PresentationModelInfoBuilder(typeElement, 
 					presentationModelObjectTypeName, true);
 			PresentationModelInfo presentationModelInfo = builder.build();
@@ -66,7 +64,7 @@ public class PresentationModelProcessor extends AbstractProcessor {
 				if (isItemPresentationModelAlso(typeElement)) {
 					createItemPresentationModelObjectSourceFiles(presentationModelInfo, context);
 					createItemPresentationModelObjectSourceFiles(typeElement.qName(),
-							typeElement.qName() + ITEM_PRESENTATION_MODEL_OBJECT_SUFFIX, context);
+							ItemPresentationModelObjectLoader.getObjectClassName(typeElement.binaryName()), context);
 				} else {
 					generateAllClasses(presentationModelInfo, context, log);
 				}

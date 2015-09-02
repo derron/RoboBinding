@@ -3,7 +3,6 @@ package org.robobinding.binder;
 import com.google.common.base.Preconditions;
 import org.robobinding.Bug;
 import org.robobinding.presentationmodel.AbstractItemPresentationModelObject;
-import org.robobinding.presentationmodel.AbstractPresentationModelObject;
 import org.robobinding.presentationmodel.HasPresentationModelChangeSupport;
 import org.robobinding.util.ConstructorUtils;
 
@@ -17,13 +16,16 @@ import java.text.MessageFormat;
  */
 public class ItemPresentationModelObjectLoader {
 	public static final String CLASS_SUFFIX = "$$IPM";
+	public static String getObjectClassName(String binaryName) {
+		return binaryName.replace('$', '_') + CLASS_SUFFIX;
+	}
 	public static AbstractItemPresentationModelObject load(Object itemPresentationModel) {
 		if(itemPresentationModel instanceof HasPresentationModelChangeSupport) {
 			Preconditions.checkNotNull(((HasPresentationModelChangeSupport)itemPresentationModel).getPresentationModelChangeSupport(),
 					"The PresentationModelChangeSupport from itemPresentationModel.getPresentationModelChangeSupport() must not be null");
 		}
 		
-		String itemPresentationModelObjectClassName = itemPresentationModel.getClass().getName()+CLASS_SUFFIX;
+		String itemPresentationModelObjectClassName = getObjectClassName(itemPresentationModel.getClass().getName());
 		Class<?> itemPresentationModelObjectType;
 		try {
 			itemPresentationModelObjectType = Class.forName(itemPresentationModelObjectClassName);
