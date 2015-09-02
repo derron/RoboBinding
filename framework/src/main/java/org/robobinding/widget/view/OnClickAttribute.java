@@ -1,5 +1,6 @@
 package org.robobinding.widget.view;
 
+import org.robobinding.TrackHelper;
 import org.robobinding.attribute.Command;
 import org.robobinding.widgetaddon.view.ViewAddOnForView;
 
@@ -21,7 +22,14 @@ public class OnClickAttribute implements EventViewAttributeForView {
 			@Override
 			public void onClick(View v) {
 				ClickEvent clickEvent = new ClickEvent(v);
+				TrackHelper.OnClickHook hook = TrackHelper.getOnClickHook();
+				if (hook != null) {
+					hook.preInvokeClickEvent(clickEvent);
+				}
 				command.invoke(clickEvent);
+				if (hook != null) {
+					hook.postInvokeClickEvent(clickEvent);
+				}
 			}
 		});
 	}

@@ -5,11 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.robobinding.NonBindingViewInflater;
-import org.robobinding.PendingAttributesForView;
-import org.robobinding.PendingAttributesForViewImpl;
-import org.robobinding.PredefinedPendingAttributesForView;
-import org.robobinding.ViewCreationListener;
+import org.robobinding.*;
 
 import android.util.AttributeSet;
 import android.view.View;
@@ -81,6 +77,11 @@ public class BindingViewInflater implements ViewCreationListener {
 	public void onViewCreated(View childView, AttributeSet attrs) {
 		Map<String, String> pendingAttributeMappings = bindingAttributeParser.parse(attrs);
 		if (!pendingAttributeMappings.isEmpty()) {
+			if (pendingAttributeMappings.containsKey(TrackHelper.ATTR_TRACK_TAG)) {
+				String eventId = pendingAttributeMappings.get(TrackHelper.ATTR_TRACK_TAG);
+				childView.setTag(TrackHelper.TAG_TRACK_TAG, eventId);
+				pendingAttributeMappings.remove(TrackHelper.ATTR_TRACK_TAG);
+			}
 			PendingAttributesForView pendingAttributesForView = new PendingAttributesForViewImpl(childView, pendingAttributeMappings);
 			resolveAndAddViewBindingAttributes(pendingAttributesForView);
 		}
