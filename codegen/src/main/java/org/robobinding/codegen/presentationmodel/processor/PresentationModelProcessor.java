@@ -9,6 +9,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
 
+import org.robobinding.annotation.BindingLayout;
 import org.robobinding.annotation.PresentationModel;
 import org.robobinding.binder.ItemPresentationModelObjectLoader;
 import org.robobinding.binder.PresentationModelObjectLoader;
@@ -50,6 +51,9 @@ public class PresentationModelProcessor extends AbstractProcessor {
 				processingEnv.getElementUtils(), processingEnv.getMessager());
 		Set<WrappedTypeElement> typeElements = roundContext.typeElementsAnnotatedWith(PresentationModel.class, 
 				new PresentationModelFilter());
+		Set<WrappedTypeElement> typeElements2 = roundContext.typeElementsAnnotatedWith(BindingLayout.class,
+				new PresentationModelFilter());
+		typeElements.addAll(typeElements2);
 		
 		for(WrappedTypeElement typeElement : typeElements) {
 			String presentationModelObjectTypeName = PresentationModelObjectLoader.getObjectClassName(typeElement.binaryName());
@@ -165,6 +169,7 @@ public class PresentationModelProcessor extends AbstractProcessor {
 	public Set<String> getSupportedAnnotationTypes() {
 		Set<String> supportedAnnotationTypes = Sets.newHashSet();
 		supportedAnnotationTypes.add(PresentationModel.class.getName());
+		supportedAnnotationTypes.add(BindingLayout.class.getName());
 		return supportedAnnotationTypes;
 	}
 
